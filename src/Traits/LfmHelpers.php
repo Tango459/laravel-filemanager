@@ -151,7 +151,7 @@ trait LfmHelpers
         $thumb_folder_name = config('lfm.thumb_folder_name');
         // if user is inside thumbs folder, there is no need
         // to add thumbs substring to the end of url
-        $in_thumb_folder = str_contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
+        $in_thumb_folder = \Illuminate\Support\Str::contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
 
         if (! $in_thumb_folder) {
             return $thumb_folder_name . $this->ds;
@@ -268,7 +268,7 @@ trait LfmHelpers
      */
     private function removeFirstSlash($path)
     {
-        if (starts_with($path, $this->ds)) {
+        if (\Illuminate\Support\Str::startsWith($path, $this->ds)) {
             $path = substr($path, 1);
         }
 
@@ -284,7 +284,7 @@ trait LfmHelpers
     private function removeLastSlash($path)
     {
         // remove last slash
-        if (ends_with($path, $this->ds)) {
+        if (\Illuminate\Support\Str::endsWith($path, $this->ds)) {
             $path = substr($path, 0, -1);
         }
 
@@ -332,7 +332,7 @@ trait LfmHelpers
      */
     public function isProcessingImages()
     {
-        return lcfirst(str_singular(request('type', '') ?: '')) === 'image';
+        return lcfirst(\Illuminate\Support\Str::singular(request('type', '') ?: '')) === 'image';
     }
 
     /**
@@ -518,7 +518,7 @@ trait LfmHelpers
     {
         $mime_type = $this->getFileType($file);
 
-        return starts_with($mime_type, 'image');
+        return \Illuminate\Support\Str::startsWith($mime_type, 'image');
     }
 
     /**

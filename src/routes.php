@@ -1,9 +1,19 @@
 <?php
+$lfmMiddlewares = \Config::get('lfm.middlewares');
 
-$middleware = array_merge(\Config::get('lfm.middlewares'), [
-    '\UniSharp\LaravelFilemanager\Middlewares\MultiUser',
-    '\UniSharp\LaravelFilemanager\Middlewares\CreateDefaultFolder',
-]);
+if(is_array($lfmMiddlewares)) {
+    $middleware = array_merge($lfmMiddlewares, [
+        '\UniSharp\LaravelFilemanager\Middlewares\MultiUser',
+        '\UniSharp\LaravelFilemanager\Middlewares\CreateDefaultFolder',
+    ]);
+} else {
+    $middleware = [
+        '\UniSharp\LaravelFilemanager\Middlewares\MultiUser',
+        '\UniSharp\LaravelFilemanager\Middlewares\CreateDefaultFolder',
+    ];
+}
+
+
 $prefix = \Config::get('lfm.url_prefix', \Config::get('lfm.prefix', 'laravel-filemanager'));
 $as = 'unisharp.lfm.';
 $namespace = '\UniSharp\LaravelFilemanager\Controllers';
